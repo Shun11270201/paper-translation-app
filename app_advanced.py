@@ -5,7 +5,7 @@ import streamlit as st
 import tiktoken
 
 # --- アプリの基本設定 ---
-st.set_page_config(page_title="論文PDF翻訳＆要約アプリ (ページ単位処理)", page_icon="📄", layout="wide")
+st.set_page_config(page_title="論文PDF翻訳＆要約アプリ", page_icon="📄", layout="wide")
 
 # --- OpenAI APIクライアントを初期化する関数 (変更なし) ---
 def get_openai_client(api_key):
