@@ -1,2 +1,26 @@
-# paper-translation-app
-You can translate the English thesis thought this app.
+# 論文PDF翻訳＆要約アプリ
+
+このリポジトリは、Streamlitで作成した、PDF論文を翻訳・要約するウェブアプリケーションのソースコードです。
+
+## 概要
+
+アップロードされたPDFファイルのテキストをページ単位で抽出し、OpenAIのGPTモデルを利用して全文翻訳や要約を行います。
+
+## 主な機能
+
+- **PDF全文翻訳**: 長い論文でも、ページ単位で安定して翻訳します。
+- **AIによる要約**: 論文の要点を指定した形式で要約します。
+- **Markdownダウンロード**: 成果物をMarkdownファイルとしてダウンロードできます。
+
+## 使用技術
+
+- Python
+- Streamlit
+- OpenAI API
+- PyMuPDF, Tiktoken
+
+## 使い方
+
+1. サイドバーでご自身のOpenAI APIキーを入力します。
+2. 処理したい内容（翻訳・要約など）を選択します。
+3. PDFファイルをアップロードし、「実行する」ボタンを押します。
