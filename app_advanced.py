@@ -40,7 +40,7 @@ def get_token_count(text, model):
     return len(encoding.encode(text))
 
 def split_text_into_chunks(text: str, model: str, max_tokens: int = 2000) -> list:
-    """テキストをトークン数に基づいてチャンクに分割する関数 (改善版)"""
+    """テキストをトークン数に基づいてチャンクに分割する関数"""
     chunks = []
     # まずは改行で分割を試みる
     sentences = text.split('\n')
