@@ -7,7 +7,7 @@ import tiktoken
 # --- アプリの基本設定 ---
 st.set_page_config(page_title="論文PDF翻訳＆要約アプリ", page_icon="📄", layout="wide")
 
-# --- OpenAI APIクライアントを初期化する関数 (変更なし) ---
+# --- OpenAI APIクライアントを初期化する関数  ---
 def get_openai_client(api_key):
     if 'openai_client' not in st.session_state or st.session_state.api_key != api_key:
         try:
@@ -21,7 +21,7 @@ def get_openai_client(api_key):
 
 # --- テキスト処理関数 ---
 
-# (変更点) ページごとのテキストリストを返すように変更
+# ページごとのテキストリストを返すように変更
 def extract_text_from_pdf_by_page(uploaded_file) -> list[str]:
     """アップロードされたPDFファイルからページごとにテキストを抽出し、文字列のリストとして返す"""
     try:
@@ -59,7 +59,7 @@ def split_text_into_chunks(text: str, model: str, max_tokens: int = 2000) -> lis
     if current_chunk: chunks.append(current_chunk)
     return chunks
 
-# (変更点) ページ単位で翻訳処理を行う新しい関数
+# ページ単位で翻訳処理を行う関数
 def translate_page_by_page(client: OpenAI, pages_text: list[str], model: str, target_language: str) -> str:
     """テキストのリスト（ページごと）を受け取り、ページ単位で翻訳する"""
     if not pages_text: return ""
@@ -110,7 +110,6 @@ def translate_page_by_page(client: OpenAI, pages_text: list[str], model: str, ta
 
 
 def summarize_text(client, text, model, custom_prompt):
-    # (この関数は前回の段階的要約のままでOK)
     if not text: return ""
     try:
         chunks = split_text_into_chunks(text, model, max_tokens=3000)
@@ -134,11 +133,11 @@ def summarize_text(client, text, model, custom_prompt):
     except Exception as e:
         st.error(f"要約エラー: {e}"); return ""
 
-# --- Streamlit UI部分 (大きな変更はなし) ---
+# --- Streamlit UI部分---
 st.title("📄 論文PDF翻訳＆要約アプリ")
 st.markdown("PDFを1ページずつ翻訳・要約し、結果をMarkdownファイルとしてダウンロードできます。")
 
-# (サイドバーは変更なし)
+
 with st.sidebar:
     st.header("⚙️ 事前設定")
     api_key = st.text_input("OpenAI APIキー", type="password")
@@ -167,7 +166,7 @@ if uploaded_file:
         if not client: st.stop()
 
         with st.spinner("PDFからテキストをページ毎に抽出中..."):
-            # (変更点) ページごとのリストを受け取る
+            # ページごとのリストを受け取る
             pages_text_list = extract_text_from_pdf_by_page(uploaded_file)
         
         if not pages_text_list:
@@ -176,12 +175,12 @@ if uploaded_file:
 
         translated_text, summary_text = "", ""
         
-        # (変更点) 新しい翻訳関数を呼び出す
+        # 新しい翻訳関数を呼び出す
         if '翻訳' in process_option:
             translated_text = translate_page_by_page(client, pages_text_list, model_option, target_language)
         
         if '要約' in process_option:
-            # (変更点) 要約のため、ページリストを一つのテキストに結合
+            # 要約のため、ページリストを一つのテキストに結合
             full_original_text = "\n".join(pages_text_list)
             text_for_summary = translated_text if summarize_source == "翻訳後のテキスト" and translated_text else full_original_text
             summary_text = summarize_text(client, text_for_summary, model_option, custom_prompt)
@@ -195,7 +194,7 @@ if uploaded_file:
         st.session_state.result_generated = True
         st.rerun()
 
-# (結果表示部分は変更なし)
+# 結果表示
 if st.session_state.result_generated:
     st.header("📊 処理結果")
     markdown_output = f"# 📄 「{st.session_state.filename}」の処理結果\n\n"
