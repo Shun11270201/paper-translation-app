@@ -21,7 +21,7 @@ def get_openai_client(api_key):
 
 # --- テキスト処理関数 ---
 
-# ページごとのテキストリストを返すように変更
+# ページごとのテキストリストを返す
 def extract_text_from_pdf_by_page(uploaded_file) -> list[str]:
     """アップロードされたPDFファイルからページごとにテキストを抽出し、文字列のリストとして返す"""
     try:
