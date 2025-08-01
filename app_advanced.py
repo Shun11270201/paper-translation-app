@@ -135,7 +135,7 @@ def summarize_text(client, text, model, custom_prompt):
         st.error(f"要約エラー: {e}"); return ""
 
 # --- Streamlit UI部分 (大きな変更はなし) ---
-st.title("📄 論文PDF翻訳＆要約アプリ (ページ単位処理)")
+st.title("📄 論文PDF翻訳＆要約アプリ")
 st.markdown("PDFを1ページずつ翻訳・要約し、結果をMarkdownファイルとしてダウンロードできます。")
 
 # (サイドバーは変更なし)
